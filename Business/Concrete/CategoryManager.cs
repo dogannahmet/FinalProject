@@ -31,6 +31,7 @@ namespace Business.Concrete
         {
             //Select * from Categories where CategoryId = 3 (sql'de bu demek)
             return _categoryDal.Get(c => c.CategoryId == categoryId);
+            
         }
     }
 }
