@@ -14,15 +14,15 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(p => p.UnitPrice).GreaterThanOrEqualTo(10).When(p => p.CategoryId == 1);
 
             //kendi kuralımızı yazabiliyoruz.
-            //RuleFor(p => p.ProductName).Must(StartWithA).WithMessage("Ürün isimleri -A- harfi ile başlamalıdır.");
+            RuleFor(p => p.ProductName).Must(StartWithA).WithMessage("Ürün isimleri -A- harfi ile başlamalıdır.");
 
             
 
         }
 
-        //private bool StartWithA(string arg)
-        //{
-        //    return arg.StartsWith("A");
-        //}
+        private bool StartWithA(string arg)
+        {
+            return arg.StartsWith("A");
+        }
     }
 }

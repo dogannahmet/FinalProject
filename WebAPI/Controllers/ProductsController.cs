@@ -1,17 +1,11 @@
 ﻿using Business.Abstract;
-using Business.Concrete;
-using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace WebAPI.Controllers
 {
-    
+
     //Route => istek yapılırken nasıl ulaşılması gerektiğini söyler.
     [Route("api/[controller]")]
     [ApiController]
@@ -33,6 +27,8 @@ namespace WebAPI.Controllers
         {
             //Dependency chain
             //IProductService productService = new ProductManager(new EfProductDal());
+            Thread.Sleep(1500);
+
             var result = _productService.GetAll();
             if (result.Success)
             {
@@ -41,6 +37,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        
         [HttpGet("getbyid")]
         //public IActionResult Get(int productId)
         public IActionResult GetById(int productId)
@@ -53,6 +50,19 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("getbycategory")]
+        //public IActionResult Get(int productId)
+        public IActionResult GetByCategory(int categoryId)
+        {
+            var result = _productService.GetAllByCategoryId(categoryId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+
         [HttpPost("add")]
         //public IActionResult Post(Product product)
         public IActionResult Add(Product product)
@@ -64,5 +74,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
+       
     }
 }
